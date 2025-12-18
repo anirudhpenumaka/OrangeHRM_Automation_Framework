@@ -12,45 +12,81 @@ public class LoginTest extends BaseTest
 {
 	LoginPage loginpage;
 	
-	@Test(priority=1)
-	public void logintest()
-	{
-		loginpage =new LoginPage(driver);
-		loginpage.loginAs("Admin","admin123");
-		
-		//validation
-		Assert.assertTrue(driver.getCurrentUrl().contains("dashboard"),"Valid login failed: Dashboard not loaded");
+	
+	@Test(priority = 1)
+	public void logintest() {
+
+	    logger.info("===== START: Valid Login Test =====");
+
+	    loginpage = new LoginPage(driver);
+	    logger.info("Entering valid username and password");
+	       
+	    loginpage.loginAs("Admin", "admin123");
+
+	    logger.info("Validating dashboard URL after login");
+	    Assert.assertTrue(driver.getCurrentUrl().contains("dashboard"),
+	            "Valid login failed: Dashboard not loaded");
+
+	    logger.info("Valid login test PASSED");
+	    logger.info("===== END: Valid Login Test =====");
 	}
 	
-	 @Test(priority = 2)
-	    public void invalidLoginTest() {
+	@Test(priority = 2)
+	public void invalidLoginTest() {
 
-		 loginpage = new LoginPage(driver);
-		 loginpage.loginAs("Admin","wrongpassword");
+	    logger.info("===== START: Invalid Login Test =====");
 
-		 Assert.assertTrue(loginpage.isErrorMessageDisplayed());
-	    }
+	    loginpage = new LoginPage(driver);
+	    logger.info("Entering invalid password");
+
+	    loginpage.loginAs("Admin", "wrongpassword");
+
+	    logger.info("Validating error message for invalid credentials");
+	    Assert.assertTrue(loginpage.isErrorMessageDisplayed(),
+	            "Error message not displayed for invalid credentials");
+
+	    logger.info("Invalid login test PASSED");
+	    logger.info("===== END: Invalid Login Test =====");
+	}
 	 
-	 @Test(priority = 3)
-	    public void blankCredentialsTest() {
+	@Test(priority = 3)
+	public void blankCredentialsTest() {
 
-		 loginpage = new LoginPage(driver);
-		 loginpage.loginAs("","");
+	    logger.info("===== START: Blank Credentials Login Test =====");
 
-		 Assert.assertTrue(driver.getCurrentUrl().contains("auth/login"),"User navigated away from login page with blank credentials");
-	    }
+	    loginpage = new LoginPage(driver);
+	    logger.info("Attempting login with blank username and password");
+
+	    loginpage.loginAs("", "");
+
+	    logger.info("Validating error message for blank credentials");
+	    Assert.assertTrue(loginpage.isErrorMessageDisplayed(),
+	            "Error message not displayed for blank credentials");
+
+	    logger.info("Blank credentials login test PASSED");
+	    logger.info("===== END: Blank Credentials Login Test =====");
+	}
 	 
-	 @Test(priority = 4)
-	    public void loginPageUIValidationTest() {
+	@Test(priority = 4)
+	public void loginPageUIValidationTest() {
 
-		 loginpage = new LoginPage(driver);
+	    logger.info("===== START: Login Page UI Validation Test =====");
 
-	        Assert.assertTrue(loginpage.isPasswordMasked(), "Password field is not masked");
+	    loginpage = new LoginPage(driver);
 
-	        Assert.assertTrue(driver.getTitle().contains("OrangeHRM"),
-	                "Login page title mismatch");
+	    logger.info("Validating password field masking");
+	    Assert.assertTrue(loginpage.isPasswordMasked(),
+	            "Password field is not masked");
 
-	        Assert.assertTrue(driver.getCurrentUrl().contains("orangehrmlive"),
-	                "Login page URL mismatch");
-	    }
+	    logger.info("Validating login page title");
+	    Assert.assertTrue(driver.getTitle().contains("OrangeHRM"),
+	            "Login page title mismatch");
+
+	    logger.info("Validating login page URL");
+	    Assert.assertTrue(driver.getCurrentUrl().contains("orangehrmlive"),
+	            "Login page URL mismatch");
+
+	    logger.info("Login page UI validation test PASSED");
+	    logger.info("===== END: Login Page UI Validation Test =====");
+	}
 }
