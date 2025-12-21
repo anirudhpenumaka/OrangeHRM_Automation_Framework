@@ -13,7 +13,7 @@ public class LoginTest extends BaseTest
 	LoginPage loginpage;
 	
 	
-	@Test(priority = 1)
+	@Test
 	public void logintest() {
 
 	    logger.info("===== START: Valid Login Test =====");
@@ -31,7 +31,7 @@ public class LoginTest extends BaseTest
 	    logger.info("===== END: Valid Login Test =====");
 	}
 	
-	@Test(priority = 2)
+	@Test
 	public void invalidLoginTest() {
 
 	    logger.info("===== START: Invalid Login Test =====");
@@ -49,7 +49,7 @@ public class LoginTest extends BaseTest
 	    logger.info("===== END: Invalid Login Test =====");
 	}
 	 
-	@Test(priority = 3)
+	@Test
 	public void blankCredentialsTest() {
 
 	    logger.info("===== START: Blank Credentials Login Test =====");
@@ -67,7 +67,7 @@ public class LoginTest extends BaseTest
 	    logger.info("===== END: Blank Credentials Login Test =====");
 	}
 	 
-	@Test(priority = 4)
+	@Test
 	public void loginPageUIValidationTest() {
 
 	    logger.info("===== START: Login Page UI Validation Test =====");

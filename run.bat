@@ -1,0 +1,2 @@
+cd C:\Java Workspace\Automation_Frameworks\OrangeHRM_Automation_Framework
+mvn test

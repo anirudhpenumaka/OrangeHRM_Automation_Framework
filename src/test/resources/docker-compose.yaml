@@ -1,0 +1,40 @@
+services:
+  selenium-hub-grid01:
+    image: selenium/hub:latest
+    container_name: selenium-hub-grid01
+    ports:
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"
+    networks:
+      - grid01
+
+  chrome-grid01:
+    image: selenium/node-chrome:latest
+    container_name: chrome-grid01
+    depends_on:
+      - selenium-hub-grid01
+    shm_size: 2gb
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub-grid01
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    networks:
+      - grid01
+
+  firefox-grid01:
+    image: selenium/node-firefox:latest
+    container_name: firefox-grid01
+    depends_on:
+      - selenium-hub-grid01
+    shm_size: 2gb
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub-grid01
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    networks:
+      - grid01
+
+networks:
+  grid01:
+    driver: bridge

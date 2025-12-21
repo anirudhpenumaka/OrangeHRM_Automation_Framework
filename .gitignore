@@ -1,6 +1,7 @@
-target/
-test-output/
-.settings/
-.classpath
-.project
+/target/
+/reports/
+/screenshots/
+/.logs/
+/.idea/
+/.vscode/
 *.log

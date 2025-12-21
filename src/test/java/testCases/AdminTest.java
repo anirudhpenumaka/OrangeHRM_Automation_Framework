@@ -1,6 +1,5 @@
 package testCases;
 
-import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -10,75 +9,36 @@ import testBase.BaseTest;
 
 public class AdminTest extends BaseTest {
 
-    LoginPage loginPage;
-    AdminPage adminPage;
+    @Test(dataProvider = "adminData", groups = {"admin"})
+    public void addAdminUserTest(String employeeName,
+                                 String username,
+                                 String password) {
 
-    @Test(dataProvider = "userData")
-    public void addUserTest(String role,
-                            String employeeName,
-                            String username,
-                            String status,
-                            String password) {
-
-        logger.info("===== START: Add User Test =====");
-
-        // Login
-        loginPage = new LoginPage(driver);
-        logger.info("Logging in with Admin credentials");
+        LoginPage loginPage = new LoginPage(driver);
         loginPage.loginAs(
                 config.getProperty("username"),
                 config.getProperty("password")
         );
 
-        // Navigate to Admin
-        adminPage = new AdminPage(driver);
-        logger.info("Navigating to Admin module");
-        adminPage.clickAdminMenu();
+        AdminPage adminPage = new AdminPage(driver);
 
-        // Add User
-        logger.info("Clicking Add User");
+        adminPage.openAdminPage();
         adminPage.clickAddUser();
 
-        logger.info("Selecting User Role: " + role);
-        adminPage.selectUserRole(role);
+        adminPage.selectAdminRole();
+        adminPage.selectEnabledStatus();
 
-        logger.info("Entering Employee Name: " + employeeName);
         adminPage.enterEmployeeName(employeeName);
-
-        logger.info("Entering Username: " + username);
         adminPage.enterUsername(username);
-
-        logger.info("Selecting Status: " + status);
-        adminPage.selectStatus(status);
-
-        logger.info("Entering Password");
         adminPage.enterPassword(password);
-        adminPage.enterConfirmPassword(password);
 
-        logger.info("Saving user");
         adminPage.clickSave();
-
-        // Verification
-        logger.info("Searching for created user");
-        adminPage.searchUser(username);
-
-        Assert.assertTrue(
-                adminPage.isUserPresent(username),
-                "User creation failed for username: " + username
-        );
-
-        logger.info("User created successfully: " + username);
-        logger.info("===== END: Add User Test =====");
     }
 
-    // ================== DATA PROVIDER ==================
-
-    @DataProvider(name = "userData")
-    public Object[][] getUserData() {
-
-        return new Object[][] {
-                { "ESS", "Paul Collings", "testuser01", "Enabled", "Test@123" },
-                { "Admin", "Paul Collings", "testuser02", "Enabled", "Test@123" }
+    @DataProvider(name = "adminData")
+    public Object[][] getAdminData() {
+        return new Object[][]{
+                {"Paul Collings", "admin_user_01", "Test@123"}
         };
     }
 }

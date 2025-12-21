@@ -12,7 +12,6 @@
 
     <!-- ================= JAVA VERSION ================= -->
     <properties>
-        <!-- ⚠️ Java 17 is safest for Selenium + TestNG -->
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -21,21 +20,21 @@
     <!-- ================= DEPENDENCIES ================= -->
     <dependencies>
 
-        <!-- ⭐ Selenium -->
+        <!-- Selenium -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>4.36.0</version>
         </dependency>
 
-        <!-- ⭐ WebDriverManager -->
+        <!-- WebDriverManager -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>5.9.2</version>
         </dependency>
 
-        <!-- ⭐ TestNG -->
+        <!-- TestNG -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -43,7 +42,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- ⭐ Assertions -->
+        <!-- Hamcrest -->
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest</artifactId>
@@ -51,14 +50,14 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- ⭐ Extent Reports -->
+        <!-- Extent Reports -->
         <dependency>
             <groupId>com.aventstack</groupId>
             <artifactId>extentreports</artifactId>
             <version>5.1.1</version>
         </dependency>
 
-        <!-- ⭐ Apache POI (Excel support – future ready) -->
+        <!-- Apache POI -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
@@ -70,14 +69,14 @@
             <version>5.4.1</version>
         </dependency>
 
-        <!-- ⭐ Commons IO -->
+        <!-- Commons IO -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.16.1</version>
         </dependency>
 
-        <!-- ⭐ Log4j2 -->
+        <!-- Log4j2 -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
@@ -94,16 +93,18 @@
             <version>2.23.1</version>
         </dependency>
 
-        <!-- ⭐ JSON Support (keep ONE only) -->
+        <!-- JSON -->
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
             <version>1.1.1</version>
         </dependency>
 
+      
+
     </dependencies>
 
-    <!-- ================= BUILD PLUGINS ================= -->
+    <!-- ================= BUILD ================= -->
     <build>
         <plugins>
 
@@ -118,14 +119,14 @@
                 </configuration>
             </plugin>
 
-            <!-- TestNG Execution -->
+            <!-- Surefire (TestNG) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>testng.xml</suiteXmlFile>
+                        <suiteXmlFile>master.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
